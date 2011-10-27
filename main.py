@@ -16,15 +16,49 @@
 #
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-
+import simplejson
+import models
+import datetime
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
         self.response.out.write('Hello world!')
 
+class Store(webapp.RequestHandler):
+    def get(self):
+        
+        now = datetime.datetime.now()
+        
+        url = self.request.get("url");
+        db = models.ImageData();
+        db.url = url
+        db.dateTime = now
+        
+        db.put()
+        
+        self.response.http_status_message(200)
+        
+class Display(webapp.RequestHandler):
+    def get(self):
+        db = models.ImageData.all();
+        
+        displayDict = {}
+        counter = 0
+        
+        for element in db:
+            counter = counter + 1
+            displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime) }
+            
+        result = simplejson.dumps(displayDict)
+        
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.out.write(result)
+        
 
 def main():
-    application = webapp.WSGIApplication([('/', MainHandler)],
+    application = webapp.WSGIApplication([('/', MainHandler),
+                                          ('/store', Store),
+                                          ('/display', Display)],
                                          debug=True)
     util.run_wsgi_app(application)
 

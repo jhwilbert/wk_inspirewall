@@ -1,5 +1,6 @@
 // Declare all arrays
 var elements = [];
+var service = "http://localhost:8083/store";
 
 // Perform Search on body elements
 
@@ -34,7 +35,12 @@ function Element(index,value) {
     
     // add click action
     $('#tag'+index).click(function() {
-        console.debug(value['src'])
+        
+        img_url = value['src']
+        
+        // TODO : since it's javascript injection there's a cross domain issue preventing response
+        $.get(service, { url: img_url });
+           
     });
     
 }

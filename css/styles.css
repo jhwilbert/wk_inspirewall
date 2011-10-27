@@ -1,0 +1,14 @@
+.tag {
+    font-family:Arial;
+    font-size:10px;
+    background:red;
+    padding:10;
+    text-align:center;
+    color:white;
+    width: 90px;
+    height:20px;
+    position:absolute;
+    z-index:10000000;
+    cursor: pointer;
+    
+}

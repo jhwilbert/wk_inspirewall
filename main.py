@@ -65,7 +65,14 @@ class Update(webapp.RequestHandler):
         
 class Store(webapp.RequestHandler):
     def get(self):
+ 
+        """
+        Resource URI: /store
+        Method: POST (url) 
         
+        Stores an image URL in the datastore object
+       
+        """        
         now = datetime.datetime.now()
         
         url = self.request.get("url")
@@ -96,7 +103,10 @@ class DisplayRecent(webapp.RequestHandler):
         for element in db:
             counter = counter + 1
             displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), "key_name" : str(element.key().name()) , "recent" : element.recent  }
-
+        
+        if len(displayDict) == 0:
+            displayDict = { "empty" : True }
+            
         result = simplejson.dumps(displayDict)
 
         self.response.headers['Content-Type'] = 'application/json'

@@ -13,8 +13,8 @@ $(document).ready(function(){
     /* Gets all images in the first run */
     getAllImages();
     
-    $(".image").css("left", 200+"px");
-    $(".image").css("top", 300+"px");
+    //$(".image").css("left", 200+"px");
+    //$(".image").css("top", 300+"px");
 
     
 });
@@ -50,7 +50,7 @@ function Image(key_name,url) {
         //console.debug(response)
     });
     
-    imageObject = '<div class="image" id="img_'+key_name+'"><img src='+url+'></div>';
+    imageObject = '<div id="img_'+key_name+'"><img class="image" src='+url+'></div>';
     
     return imageObject;
 }

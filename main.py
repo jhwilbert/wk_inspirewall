@@ -27,6 +27,17 @@ import random
 import short_url
 
 
+class Bookmarklet(webapp.RequestHandler):
+    def get(self):
+        
+        """
+        Resource URI: /bookmarklet
+        Static page with bookmarklet.
+        
+        """    
+        path = os.path.join(os.path.dirname(__file__), 'bookmarklet.html')
+        self.response.out.write(template.render(path, {}))
+
 class MainHandler(webapp.RequestHandler):
     def get(self):
 
@@ -36,8 +47,7 @@ class MainHandler(webapp.RequestHandler):
         
         Displays main slideshow interface (main.js)
        
-        """
-        
+        """      
         db = models.ImageData.all();
 
         display = {
@@ -102,7 +112,8 @@ class DisplayRecent(webapp.RequestHandler):
 
         for element in db:
             counter = counter + 1
-            displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), "key_name" : str(element.key().name()) , "recent" : element.recent  }
+            displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), 
+                                     "key_name" : str(element.key().name()) , "recent" : element.recent  }
         
         # If it doesn't return any images it sends a message to main.js
         if len(displayDict) == 0:
@@ -130,7 +141,8 @@ class DisplayAll(webapp.RequestHandler):
         
         for element in db:
             counter = counter + 1
-            displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), "key_name" : str(element.key().name()) , "recent" : element.recent  }
+            displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), 
+                                     "key_name" : str(element.key().name()) , "recent" : element.recent  }
             
         result = simplejson.dumps(displayDict)
         
@@ -141,6 +153,7 @@ class DisplayAll(webapp.RequestHandler):
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler),
+                                          ('/bookmarklet', Bookmarklet),
                                           ('/update', Update),
                                           ('/store', Store),
                                           ('/display_recent', DisplayRecent),

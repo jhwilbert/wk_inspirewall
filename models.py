@@ -2,6 +2,6 @@
 from google.appengine.ext import db
 
 class ImageData(db.Model):
-  url           = db.TextProperty()
+  url           = db.LinkProperty()
   dateTime      = db.DateTimeProperty()
-  viewed        = db.BooleanProperty(required=True, default=False)
+  recent        = db.BooleanProperty(required=True, default=True)

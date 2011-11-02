@@ -37,6 +37,7 @@ function Element(index,value) {
     $('#tag'+index).click(function() {
         
         img_url = value['src']
+
         
         // TODO : since it's javascript injection there's a cross domain issue preventing response
         $.get(service, { url: img_url });

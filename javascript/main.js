@@ -3,10 +3,8 @@
 displayAllPath = "http://localhost:8083/display_all";
 displayRecentPath = "http://localhost:8083/display_recent";
 updatePath = "http://localhost:8083/update";
-firstLoad = true
 
 /* Arrays */
-
 imgList = []
 
 /* Init */
@@ -15,8 +13,9 @@ $(document).ready(function(){
     /* Gets all images in the first run */
     getAllImages();
     
-    /* Sets Interval for getting images every 5 seconds */
-    setInterval(getNewImages,5000);
+    $(".image").css("left", 200+"px");
+    $(".image").css("top", 300+"px");
+
     
 });
 
@@ -28,62 +27,47 @@ function getAllImages() {
     
     $.getJSON(displayAllPath, function(data){
         $.each(data, function(index,value){
-            imgList[index] = new Image(value.key_name,value.url);
-             
+            imgList[index] = new Image(value.key_name,value.url);         
              $('.slideshow').append(imageObject);
         });  
         
-        slideshow = new Slideshow()
+        /* Creates a slideshow instance */
+        slideshow = new Slideshow();
     });
     
 }
 
-function getNewImages() {
-    
-    /* Requests JSON with all images from DataStore makes them into objects */
-    
-
-}
-
 /* Objects */
+
 function Image(key_name,url) {
     
-    /* Image object has a shorturl and URL */
-    
+    /* Image object has a shorturl and URL */    
     this.key_name = key_name;
     this.url = url;
-    
-    // Add Image
-  
     
     // Toggle Status
     $.get(updatePath, { keyname: key_name }, function(response){
         //console.debug(response)
     });
     
-    imageObject = '<div id="img_'+key_name+'"><img src='+url+'></div>';
+    imageObject = '<div class="image" id="img_'+key_name+'"><img src='+url+'></div>';
     
     return imageObject;
 }
 
 function Slideshow() {
+
+    /* Starts slideshow on div class based on jquery.cycle plugin */
     
     $('.slideshow').cycle({
         fx: 'fade',
-        startingSlide: 4, // zero-based 
+        startingSlide: 0, // zero-based 
         before:   onBefore 
-    }); 
+    });
 
-    var slidesAdded = false; 
-
+    /* Called before every slide and adds new images to the queue if there are new ones */
     function onBefore(curr, next, opts) {
-
-        /* Runs Before Every Slide and adds new images to the queue if there are new ones */
         
-        // make sure we don't call addSlide before it is defined 
-        //if (!opts.addSlide || slidesAdded) 
-        //    return; 
-
         $.getJSON(displayRecentPath, function(data){
             if(data.empty == true) {
                 //console.debug("No New Images")                
@@ -93,9 +77,7 @@ function Slideshow() {
                     imgList[index] = new Image(value.key_name,value.url);
                     opts.addSlide(imageObject);
                 });
-
             }
-            //slidesAdded = true; 
         });
     };
 }

@@ -26,6 +26,7 @@ import os
 import random
 import short_url
 
+
 class MainHandler(webapp.RequestHandler):
     def get(self):
 
@@ -94,7 +95,6 @@ class DisplayRecent(webapp.RequestHandler):
         Displays list of stored images in JSON format.
 
         """
-
         db = models.ImageData.gql("WHERE recent = true")
 
         displayDict = {}
@@ -104,6 +104,7 @@ class DisplayRecent(webapp.RequestHandler):
             counter = counter + 1
             displayDict[counter] = { "url" : element.url, "datetime" : str(element.dateTime), "key_name" : str(element.key().name()) , "recent" : element.recent  }
         
+        # If it doesn't return any images it sends a message to main.js
         if len(displayDict) == 0:
             displayDict = { "empty" : True }
             

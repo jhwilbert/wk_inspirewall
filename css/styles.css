@@ -1,3 +1,7 @@
+/*body {
+    overflow:hidden;
+}
+*/
 .tag {
     font-family:Arial;
     font-size:10px;
@@ -11,4 +15,8 @@
     z-index:10000000;
     cursor: pointer;
     
+}
+
+.slideshow {
+    position:absolute;
 }

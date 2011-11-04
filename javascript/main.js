@@ -1,8 +1,9 @@
 /* Settings */
 
-displayAllPath = "http://localhost:8083/display_all";
-displayRecentPath = "http://localhost:8083/display_recent";
-updatePath = "http://localhost:8083/update";
+displayAllPath = "http://inspirewall.appspot.com/display_all";
+displayRecentPath = "http://inspirewall.appspot.com/display_recent";
+updatePath = "http://inspirewall.appspot.com/update";
+
 
 /* Arrays */
 imgList = []

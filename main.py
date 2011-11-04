@@ -26,18 +26,6 @@ import os
 import random
 import short_url
 
-
-class Bookmarklet(webapp.RequestHandler):
-    def get(self):
-        
-        """
-        Resource URI: /bookmarklet
-        Static page with bookmarklet.
-        
-        """    
-        path = os.path.join(os.path.dirname(__file__), 'bookmarklet.html')
-        self.response.out.write(template.render(path, {}))
-
 class MainHandler(webapp.RequestHandler):
     def get(self):
 
@@ -55,6 +43,19 @@ class MainHandler(webapp.RequestHandler):
         }
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         self.response.out.write(template.render(path, display))
+        
+class Bookmarklet(webapp.RequestHandler):
+    def get(self):
+        
+        """
+        Resource URI: /bookmarklet
+        Static page with bookmarklet.
+        
+        """    
+        path = os.path.join(os.path.dirname(__file__), 'bookmarklet.html')
+        self.response.out.write(template.render(path, {}))
+
+
 
 class Update(webapp.RequestHandler):
     def get(self):

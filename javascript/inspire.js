@@ -1,7 +1,6 @@
 // Declare all arrays
 var elements = [];
-//var service = "http://localhost:8083/store";
-var service = "http://inspirewall.appspot.com/store";
+var service = "http://localhost:8080/store";
 
 // Perform Search on body elements
 

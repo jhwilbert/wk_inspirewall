@@ -22,3 +22,23 @@
     position:absolute;
 }
 
+.image {
+    float:left;
+    border: 2px solid red;
+
+}
+
+.delete {
+    width:20px;
+    height:20px;
+    color:white;
+    float:left;
+    cursor:pointer;
+    background:red;
+}
+
+.group {
+    float:left;
+    margin:10px;
+    border:1px solid blue;
+}

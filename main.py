@@ -43,7 +43,25 @@ class MainHandler(webapp.RequestHandler):
         }
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         self.response.out.write(template.render(path, display))
-        
+
+class Admin(webapp.RequestHandler):
+    def get(self):
+
+        """
+        Resource URI: /admin
+        Method: GET 
+
+        Displays main admin interface (admin.js)
+
+        """      
+        db = models.ImageData.all();
+
+        display = {
+            "images" : db
+        }
+        path = os.path.join(os.path.dirname(__file__), 'admin.html')
+        self.response.out.write(template.render(path, display))
+                        
 class Bookmarklet(webapp.RequestHandler):
     def get(self):
         
@@ -56,7 +74,23 @@ class Bookmarklet(webapp.RequestHandler):
         self.response.out.write(template.render(path, {}))
 
 
+class Delete(webapp.RequestHandler):
+    def get(self):
 
+        """
+        Resource URI: /delete
+        Method: POST 
+        Parameter: id [string]
+
+        Deletes the specified image id in the table.
+
+        """
+
+        imgid = self.request.get("keyname")
+        db = models.ImageData.get_by_key_name(imgid)
+        db.delete()
+        self.response.out.write(True)
+                
 class Update(webapp.RequestHandler):
     def get(self):
 
@@ -156,7 +190,9 @@ def main():
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/bookmarklet', Bookmarklet),
                                           ('/update', Update),
+                                          ('/delete', Delete),
                                           ('/store', Store),
+                                          ('/admin', Admin),
                                           ('/display_recent', DisplayRecent),
                                           ('/display_all', DisplayAll)],
                                          debug=True)

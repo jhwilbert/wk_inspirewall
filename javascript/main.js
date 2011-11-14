@@ -1,10 +1,3 @@
-/* Settings */
-
-displayAllPath = "http://inspirewall.appspot.com/display_all";
-displayRecentPath = "http://inspirewall.appspot.com/display_recent";
-updatePath = "http://inspirewall.appspot.com/update";
-
-
 /* Arrays */
 imgList = []
 
@@ -13,11 +6,7 @@ $(document).ready(function(){
     
     /* Gets all images in the first run */
     getAllImages();
-    
-    //$(".image").css("left", 200+"px");
-    //$(".image").css("top", 300+"px");
-
-    
+        
 });
 
 /* Functions */

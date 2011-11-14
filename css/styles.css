@@ -1,10 +1,12 @@
-/*body {
-    overflow:hidden;
-}
-*/
-.tag {
+body {
     font-family:Arial;
     font-size:10px;
+}
+
+/* Bookmarklet Tag */
+
+.tag {
+
     background:red;
     padding:10;
     text-align:center;
@@ -17,28 +19,49 @@
     
 }
 
+.tag:active {
+     color:white;
+     background:black;   
+}
+.tag:hover {
+     color:black;   
+}
+
+
+/* Slideshow */
 
 .slideshow {
-    position:absolute;
+    text-align:center;
 }
 
 .image {
     float:left;
-    border: 2px solid red;
+    /*border: 2px solid red;*/
 
 }
 
+/* Admin Page */ 
+
 .delete {
-    width:20px;
-    height:20px;
+    padding:8px;
+    text-align:center;
     color:white;
     float:left;
     cursor:pointer;
     background:red;
 }
 
+.delete:hover {
+    color:black;
+}
+
+.delete:active {
+    color:white;
+    background:black;
+}
+
 .group {
+    /*border:1px solid blue;*/
     float:left;
     margin:10px;
-    border:1px solid blue;
 }

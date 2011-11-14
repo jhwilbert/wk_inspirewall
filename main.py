@@ -122,9 +122,12 @@ class Store(webapp.RequestHandler):
         now = datetime.datetime.now()
         
         url = self.request.get("url")
+        site = self.request.get("site")
+        
         basenum = now.second
         db = models.ImageData(key_name=short_url.encode_url(basenum));
         db.url = url
+        db.site = site
         db.dateTime = now
         db.put()
         
@@ -185,6 +188,21 @@ class DisplayAll(webapp.RequestHandler):
         self.response.out.write(result)
         
 
+class Redirect(webapp.RequestHandler):
+    def get(self,key):
+
+         """
+         Resource URI: /r/keyid
+         Method: GET 
+
+         Check if key exists in datastore, if it does it will redirect.
+
+         """      
+         db = models.ImageData.get_by_key_name(key) 
+         if db == None:
+             self.redirect("/")
+         else:
+             self.redirect(db.site)
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler),
@@ -193,6 +211,7 @@ def main():
                                           ('/delete', Delete),
                                           ('/store', Store),
                                           ('/admin', Admin),
+                                          ('/r/([^/]+)', Redirect),
                                           ('/display_recent', DisplayRecent),
                                           ('/display_all', DisplayAll)],
                                          debug=True)
